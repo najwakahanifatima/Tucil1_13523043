@@ -34,4 +34,13 @@ public class Game {
     public ArrayList<Block> gameBlocks(){
         return gameBlocks;
     }
+
+    public static String getColorFromLetter(Game game, char letter){
+        for (Block blocks : game.gameBlocks()){
+            if (blocks.getLetter() == letter){
+                return blocks.getColor();
+            }
+        }
+        return null;
+    }
 }
