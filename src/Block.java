@@ -79,6 +79,10 @@ public class Block {
         position.add(new Coordinate(x, y));
     }
 
+    public static void addBlockInitPosition(Block block, int x, int y){
+        block.position.add(new Coordinate(x, y));
+    }
+
     // Copy array list position
     public static ArrayList<Coordinate> copyPosition(ArrayList<Coordinate> pos){
         ArrayList<Coordinate> newPos = new ArrayList<>();
