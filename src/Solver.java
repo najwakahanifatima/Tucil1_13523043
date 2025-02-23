@@ -71,6 +71,7 @@ public class Solver {
                     // for each element as ref, try every orientation
                     for (int or = 1; or <= 8; or++) {
                         ArrayList<Coordinate> curBlockOrient = Block.changeOrientation(block.getPosition(), ref, or);
+                        counter++;
                         // if the orientation fit
                         if (isFit(currCheckCoord, curBlockOrient, curBoard)){
 
@@ -87,24 +88,26 @@ public class Solver {
                             newRemainBlocks.remove(block);
 
                             //print remaining blocks
-                            System.out.print("Remaining blocks: ");
-                            for (Block bl : newRemainBlocks){
-                                System.out.print(bl.getLetter());
-                            }
+                            // System.out.print("Remaining blocks: ");
+                            // for (Block bl : newRemainBlocks){
+                            //     System.out.print(bl.getLetter());
+                            // }
 
-                            System.out.println("");
+                            // System.out.println("");
 
-                            System.out.print("Fit blocks: ");
-                            for (Block bl : newFitBlocks){
-                                System.out.print(bl.getLetter());
-                            }
+                            // System.out.print("Fit blocks: ");
+                            // for (Block bl : newFitBlocks){
+                            //     System.out.print(bl.getLetter());
+                            // }
 
-                            System.out.println("");
+                            // System.out.println("");
 
                             // checkBoard(newBoard);
 
                             // check the remaining blocks
+                            // System.out.print("cek");
                             if (fitBlocksToBoard(newRemainBlocks, newFitBlocks, newBoard)){
+                                System.out.print("fit");
                                 return true;
                             }
                         }
