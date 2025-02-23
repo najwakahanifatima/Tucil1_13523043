@@ -48,15 +48,14 @@ public class Solver {
         if (isFull(curBoard)){
             if (remainBlocks.isEmpty()){
                 //Solusi didapatkan
-                System.out.println("Yeay!");
                 solution = new ArrayList<>(fitBlocks);
                 return true;
             } else {
-                System.out.println("Solusi tidak ditemukan: papan penuh dan masih ada sisa block.");
+                System.out.println("Solution is not found: board is full and there are still remaining blocks.");
                 return false;
             }
         } else if (remainBlocks.isEmpty()){
-                System.out.println("Solusi tidak ditemukan: block tidak cukup untuk memenuhi papan.");
+                System.out.println("Solution is not found: blocks are not enough to fill up the board.");
                 return false;
         } else {
 
@@ -107,7 +106,6 @@ public class Solver {
                             // check the remaining blocks
                             // System.out.print("cek");
                             if (fitBlocksToBoard(newRemainBlocks, newFitBlocks, newBoard)){
-                                System.out.print("fit");
                                 return true;
                             }
                         }
@@ -152,7 +150,7 @@ public class Solver {
         }
     }
 
-    public static void showSolution(ArrayList<Block> solution){
+    public static void showSolution(Game game, ArrayList<Block> solution){
         char[][] solBoard = new char[board.length][board[0].length];
         for (Block block : solution){
             int locX = block.getLocation().getX();
@@ -166,7 +164,8 @@ public class Solver {
         }
         for (int i = 0; i < solBoard.length; i++){
             for (int j = 0; j < solBoard[0].length; j++){
-                System.out.print(solBoard[i][j]);
+                String color = Game.getColorFromLetter(game, solBoard[i][j]);
+                System.out.print(color + solBoard[i][j] + Setup.colors[0]);
             }
             System.out.println();
         }
