@@ -130,12 +130,12 @@ public class Block {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Block block = (Block) obj;
-        return Objects.equals(this.letter, block.letter); // Adjust properties as needed
+        return Objects.equals(this.letter, block.letter);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(letter); // Adjust properties as needed
+        return Objects.hash(letter);
     }
 
 }
