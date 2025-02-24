@@ -1,0 +1,19 @@
+Solution:
++---+---+---+---+
+| L |   | L |   |
++---+---+---+---+
+| L | L | L | E |
++---+---+---+---+
+| M |   | E | E |
++---+---+---+---+
+|   |   | N | N |
++---+---+---+---+
+
+Blocks in solution:
+Block letter: L at position: (0,0)
+Block letter: E at position: (3,1)
+Block letter: M at position: (0,2)
+Block letter: N at position: (2,3)
+
+Cases reviewed: 371 cases.
+Duration: 19ms.

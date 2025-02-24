@@ -1,0 +1,14 @@
+5 4 8
+DEFAULT
+XXX
+ X
+OO
+A
+RRR
+  R
+MMM
+  M
+FF
+J
+J
+H

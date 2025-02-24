@@ -1,0 +1,22 @@
+Solution:
++---+---+---+---+---+---+---+
+|   |   |   | A |   |   |   |
++---+---+---+---+---+---+---+
+|   | B | B | A | A | A |   |
++---+---+---+---+---+---+---+
+| B | B | B | C | C | C | C |
++---+---+---+---+---+---+---+
+|   | E | E | E | C | D |   |
++---+---+---+---+---+---+---+
+|   |   |   | E |   |   |   |
++---+---+---+---+---+---+---+
+
+Blocks in solution:
+Block letter: A at position: (3,0)
+Block letter: B at position: (1,1)
+Block letter: C at position: (3,2)
+Block letter: E at position: (1,3)
+Block letter: D at position: (5,3)
+
+Cases reviewed: 11677 cases.
+Duration: 30ms.

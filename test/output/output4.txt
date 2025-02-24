@@ -1,0 +1,25 @@
+Solution:
++---+---+---+---+
+| X | X | X | O |
++---+---+---+---+
+| A | X | R | O |
++---+---+---+---+
+| M | F | R | H |
++---+---+---+---+
+| M | F | R | R |
++---+---+---+---+
+| M | M | J | J |
++---+---+---+---+
+
+Blocks in solution:
+Block letter: X at position: (0,0)
+Block letter: O at position: (3,0)
+Block letter: A at position: (0,1)
+Block letter: R at position: (2,1)
+Block letter: M at position: (0,2)
+Block letter: F at position: (1,2)
+Block letter: H at position: (3,2)
+Block letter: J at position: (2,4)
+
+Cases reviewed: 43 cases.
+Duration: 17ms.

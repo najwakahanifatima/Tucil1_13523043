@@ -1,0 +1,12 @@
+4 4 4
+CUSTOM
+X.X.
+XXXX
+X.XX
+..XX
+LLL
+L L
+M
+EE
+E
+NN
