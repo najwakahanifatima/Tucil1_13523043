@@ -76,7 +76,7 @@ public class Setup {
 
     public static Game gameSetup(String filename){
        try {
-        String filepath = "../test/input/";
+        String filepath = "test/input/";
         String path = filepath.concat(filename);
         String pathname = path.concat(".txt");
         File input = new File(pathname);
@@ -103,10 +103,16 @@ public class Setup {
                 S = scanner.nextLine();
                 switch (S) {
                     case "DEFAULT" -> {
-                        // Default
+                        Solver.board = new boolean[N][M];
                     }
                     case "CUSTOM" -> {
-                        // Algo read custom matrix
+                        Solver.board = new boolean[N][M];
+                        for (int i = 0; i < N; i++) {
+                            String line = scanner.nextLine();
+                            for (int j = 0; j < M; j++) {
+                                Solver.board[i][j] = (line.charAt(j) == '.');
+                            }
+                        }
                     }
                     case "PYRAMID" -> {
                         System.out.println("Program is currently unavailable for PYRAMID.");
@@ -149,7 +155,7 @@ public class Setup {
                     } else {
                         // satu line identical dan blm ada di list -> block baru, reset y, counterblock + 1
                         y = 0; counterBlock++;
-                        Block block = new Block(findFirstLetter(chars), colors[counterBlock]); // ganti warnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        Block block = new Block(findFirstLetter(chars), colors[counterBlock]);
                         for (int p = 0; p < data.length(); p++){
                             if (chars[p] == findFirstLetter(chars)) {
                                block.addInitPosition(x, y);
@@ -174,7 +180,8 @@ public class Setup {
                 // }
 
                 if (counterBlock != P){
-                    System.out.println("Number of blocks is not equivalent to input P.");
+                    System.out.println("\nNumber of blocks is not equivalent to input P.");
+                    return null;
                 }
 
                 Game game = new Game(N, M, P, S, listBlocks);
@@ -184,7 +191,7 @@ public class Setup {
                 return game;
             }
        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred here.");
             // e.printStackTrace();
        }
        return null;
@@ -202,7 +209,7 @@ public class Setup {
             }
         }
 
-        String filepath = "../test/output/";
+        String filepath = "test/output/";
         String path = filepath.concat(outputFilename);
         String pathname = path.concat(".txt");
 
@@ -218,7 +225,11 @@ public class Setup {
                     for (char[] row : solutionBoard) {
                         writer.write("|");
                         for (char cell : row) {
-                            writer.write(" " + cell + " |");
+                            if (cell >= 'A' && cell <= 'Z'){
+                                writer.write(" " + cell + " |");
+                            } else {
+                                writer.write(" " + " " + " |");
+                            }
                         }
                         writer.write("\n");
                         writeHorizontalLine(row.length, writer);
