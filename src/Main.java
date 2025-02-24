@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Welcoming to Program
+        System.out.println("\u001B[46m" + "Welcome to IQ Puzzle Pro Solver!" + "\u001B[0m");
         
         String filename;
         try (Scanner scanner = new Scanner(System.in)) {
