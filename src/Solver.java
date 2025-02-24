@@ -29,37 +29,23 @@ public class Solver {
         return null;
     }
 
-    // Check if block is fit to the  board
-    public static boolean isFit(Coordinate currentCoord, ArrayList<Coordinate> position, boolean[][] p){
-        for (Coordinate pos : position) {
-            int rowY = currentCoord.getY() + pos.getY();
-            int colX = currentCoord.getX() + pos.getX();
-            // Not fit ketika melewati batas baris/kolom papan atau jika sudah terisi (true)
-            if (rowY < 0 || colX < 0 || rowY >= p.length || colX >= p[0].length || p[rowY][colX] == true ){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // Penyelesaian game secara rekursif
+    // Penyelesaian game 
     public static boolean fitBlocksToBoard(ArrayList<Block> remainBlocks, ArrayList<Block> fitBlocks, boolean[][] curBoard){
-        // Basis
+        
         if (isFull(curBoard)){
             if (remainBlocks.isEmpty()){
                 //Solusi didapatkan
                 solution = new ArrayList<>(fitBlocks);
                 return true;
             } else {
-                System.out.println("Solution is not found: board is full and there are still remaining blocks.");
+                // System.out.println("cek1");
                 return false;
             }
         } else if (remainBlocks.isEmpty()){
-                System.out.println("Solution is not found: blocks are not enough to fill up the board.");
+                // System.out.println("cek2");
                 return false;
         } else {
 
-            // Rekurens ----- 
             Coordinate currCheckCoord = curCoord(curBoard);
             // System.out.println("x " + currCheckCoord.getX() + " y " + currCheckCoord.getY());
             for (int i = 0; i < remainBlocks.size(); i++){
@@ -67,16 +53,17 @@ public class Solver {
 
                 // for each block, try each element as a ref
                 for (int ref = 0 ; ref < block.getPosition().size() ; ref++){
+
                     // for each element as ref, try every orientation
                     for (int or = 1; or <= 8; or++) {
                         ArrayList<Coordinate> curBlockOrient = Block.changeOrientation(block.getPosition(), ref, or);
                         counter++;
-                        // if the orientation fit
-                        if (isFit(currCheckCoord, curBlockOrient, curBoard)){
+
+                        boolean[][] newBoard = placeBlock(currCheckCoord.getY(), currCheckCoord.getX(), curBlockOrient, curBoard);
+
+                        if (newBoard != null){
 
                             // System.out.println("fit.");
-
-                            boolean[][] newBoard = updateBoard(currCheckCoord, curBlockOrient, curBoard);
                             block.setLocation(currCheckCoord);
                             block.setRef(ref);
                             block.setPosition(curBlockOrient);
@@ -86,25 +73,6 @@ public class Solver {
                             ArrayList<Block> newRemainBlocks = new ArrayList<>(remainBlocks);
                             newRemainBlocks.remove(block);
 
-                            //print remaining blocks
-                            // System.out.print("Remaining blocks: ");
-                            // for (Block bl : newRemainBlocks){
-                            //     System.out.print(bl.getLetter());
-                            // }
-
-                            // System.out.println("");
-
-                            // System.out.print("Fit blocks: ");
-                            // for (Block bl : newFitBlocks){
-                            //     System.out.print(bl.getLetter());
-                            // }
-
-                            // System.out.println("");
-
-                            // checkBoard(newBoard);
-
-                            // check the remaining blocks
-                            // System.out.print("cek");
                             if (fitBlocksToBoard(newRemainBlocks, newFitBlocks, newBoard)){
                                 return true;
                             }
@@ -112,9 +80,24 @@ public class Solver {
                     }
                 }
             }
+            // System.out.println("cek3");
             return false;
         }
-}
+    }
+
+    public static boolean[][] placeBlock(int startY, int startX, ArrayList<Coordinate> position, boolean[][] board) {
+        boolean[][] newBoard = copyBoard(board);
+        for (Coordinate pos : position) {
+            int row = startY + pos.getY();
+            int col = startX + pos.getX();
+
+            if (row < 0 || col < 0 || row >= board.length || col >= board[0].length || newBoard[row][col]) {
+                return null; // invalid placement
+            }
+            newBoard[row][col] = true;
+        }
+        return newBoard;
+    }
 
     public static boolean[][] copyBoard(boolean[][] b){
         boolean[][] newBoard = new boolean[b.length][b[0].length];
@@ -124,17 +107,6 @@ public class Solver {
             }
         }
         return newBoard;
-    }
-
-    // Update board when block is fit
-    public static boolean[][] updateBoard(Coordinate currentCoord, ArrayList<Coordinate> position, boolean[][]b){
-        boolean[][] updated = copyBoard(b);
-        for (Coordinate pos : position){
-            int row = currentCoord.getY() + pos.getY();
-            int col = currentCoord.getX() + pos.getX();
-            updated[row][col] = true;
-        }
-        return updated;
     }
 
     public static void checkBoard(boolean[][] b){
@@ -158,14 +130,15 @@ public class Solver {
             for (Coordinate pos : block.getPosition()){
                 solBoard[pos.getY() + locY][pos.getX() + locX] = block.getLetter();
             }
-            // System.out.print(block.getLetter());
-            // Block.showShape(block.getPosition());
-            // System.out.println();
         }
         for (int i = 0; i < solBoard.length; i++){
             for (int j = 0; j < solBoard[0].length; j++){
                 String color = Game.getColorFromLetter(game, solBoard[i][j]);
-                System.out.print(color + solBoard[i][j] + Setup.colors[0]);
+                if (solBoard[i][j] >= 'A' && solBoard[i][j] <= 'Z'){
+                    System.out.print(color + solBoard[i][j] + Setup.colors[0]);
+                } else {
+                    System.out.print(" ");
+                }
             }
             System.out.println();
         }
